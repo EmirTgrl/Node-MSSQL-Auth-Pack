@@ -1,10 +1,21 @@
+const express = require("express");
 const router = express.Router();
-const { register, login, me } = require("../controllers/authController.js");
+const {
+  register,
+  login,
+  me,
+  forgotPassword,
+  resetPassword,
+} = require("../controllers/authController.js");
 const { auth, allowRoles } = require("../middleware/auth.js");
 
 router.post("/register", register);
 router.post("/login", login);
 router.get("/me", auth, me);
+
+// Password reset
+router.post("/forgot-password", forgotPassword);
+router.post("/reset-password", resetPassword);
 
 // Example
 router.get("/admin/ping", auth, allowRoles("admin"), (req, res) => {
