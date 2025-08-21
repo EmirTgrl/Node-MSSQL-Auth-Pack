@@ -8,9 +8,10 @@ const {
   resetPassword,
 } = require("../controllers/authController.js");
 const { auth, allowRoles } = require("../middleware/auth.js");
+const { loginLimiter } = require("../middleware/rateLimiter.js");
 
 router.post("/register", register);
-router.post("/login", login);
+router.post("/login", loginLimiter, login);
 router.get("/me", auth, me);
 
 // Password reset

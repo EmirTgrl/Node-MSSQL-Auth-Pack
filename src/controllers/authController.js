@@ -116,7 +116,7 @@ const resetPassword = async (req, res) => {
     res.json({ message: "Password reset successfully" });
   } catch (error) {
     res
-      .json(400)
+      .status(400)
       .json({ message: "Invalid or expired token", error: error.message });
   }
 };
