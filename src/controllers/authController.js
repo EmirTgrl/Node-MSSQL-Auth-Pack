@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { User } = require("../../models/index.js");
-const { RefreshToken } = require("../../models/refreshtoken.js");
+const { User, RefreshToken } = require("../../models/index.js");
 
 // Generate JWT token
 const signToken = (user) =>
