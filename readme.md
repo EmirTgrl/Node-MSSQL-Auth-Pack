@@ -53,12 +53,17 @@ Designed for secure authentication and easy integration with any frontend applic
 
 7. Usage
 Register: POST /api/auth/register
+
 Login: POST /api/auth/login
+
 Get current user: GET /api/auth/me (requires Bearer token)
+
 Forgot password: POST /api/auth/forgot-password
+
 Reset password: POST /api/auth/reset-password (requires reset token)
+
 Admin endpoint example: GET /api/auth/admin/ping (requires admin role)
 
-8. Notes
+9. Notes
 This project is sold as-is for learning and commercial integration purposes.
 Do not share or redistribute without permission.
