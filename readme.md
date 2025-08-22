@@ -1,142 +1,117 @@
-# 🚀 Node-MSSQL Authentication Pack
+🚀 Node-MSSQL Authentication Pack
 
-A **secure and ready-to-use authentication API** built with **Node.js**, **Express**, and **Sequelize (MSSQL)**.  
-It provides **JWT authentication**, **role-based authorization**, and a **robust backend** that can be integrated with any frontend (React, Vue, Angular, mobile apps, etc.).
+A secure and ready-to-use authentication API built with Node.js, Express, and Sequelize (MSSQL).
+It provides JWT authentication, role-based authorization, and a robust backend that can be integrated with any frontend (React, Vue, Angular, mobile apps, etc.).
 
----
+✨ Key Features
 
-## ✨ **Key Features**
+• 🔐 User registration with automatic role assignment
+• 🔑 Login via email or username
+• 🛡 JWT & role-based authorization
+• ♻ Refresh token support
+• 📧 Password reset
+• 🛑 Rate-limiting for login attempts (anti-brute-force)
+• ✅ Validated user inputs
+• 🗄 Sequelize ORM with migrations
+• 🧪 Ready-to-use Postman collection for testing
 
-- 🔐 **User registration** with automatic role assignment.  
-- 🔑 **Login** via **email or username**.  
-- 🛡 **JWT & role-based authorization**.  
-- ♻ **Refresh token** support.  
-- 📧 **Password reset**.  
-- 🛑 **Rate-limiting** for login attempts (anti-brute-force).  
-- ✅ **Validated user inputs** (credentials & payload).  
-- 🗄 **Sequelize ORM** with migrations.  
-- 🧪 **Ready-to-use Postman collection** for testing.
 
----
+📋 Requirements
 
-## 📋 **Requirements**
+• Node.js & npm
+• MSSQL database server
 
-Make sure you have installed:  
-- [Node.js](https://nodejs.org/) & npm  
-- [MSSQL](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) database server  
-
----
-
-## ⚡ **Installation Guide**
+⚡ Installation Guide
 
 After downloading and extracting the project ZIP:
 
-1️⃣ Navigate to the Project Directory
-    cd Node-MSSQL-Auth-Pack
+1️⃣ Navigate to Project Directory
+
+cd Node-MSSQL-Auth-Pack
 
 2️⃣ Install Dependencies
-    npm install
+
+npm install
 
 3️⃣ Set Up Database & Environment
-    Create a .env file in the root directory of your project.
-    Fill it with your database and project information:
-    # DATABASE SETTINGS
-    DB_HOST=localhost
-    DB_USER=sa
-    DB_PASSWORD=your_strong_password
-    DB_NAME=AuthPackDB
 
-    # JWT SETTINGS
-    JWT_SECRET=your_super_secret_jwt_key
-    JWT_EXPIRES=15m
-    JWT_REFRESH_SECRET=7d
-    JWT_REFRESH_EXPIRES=7d
+Create a .env file in the root directory:
+
+Database Settings
+
+• DB_HOST=localhost
+• DB_USER=sa
+• DB_PASSWORD=your_strong_password
+• DB_NAME=AuthPackDB
+
+JWT Settings
+
+• JWT_SECRET=your_super_secret_jwt_key
+• JWT_EXPIRES=15m
+• JWT_REFRESH_SECRET=7d
+• JWT_REFRESH_EXPIRES=7d
+
 
 4️⃣ Run Migrations & Seeders
-    Crucial Step: Before running migrations, create an empty database in your MSSQL server with the name you specified in the .env file (e.g., AuthPackDB).
-    Then, run the migrations to create the necessary tables:
-     To generate all required tables: npx sequelize-cli db:migrate
-     If you also have seed files for inserting default roles/admin: npx sequelize-cli db:seed:all
-     Note: If you don't have migration or seed files yet, you can create them using: npx sequelize-cli migration:generate --name create-users  then  npx sequelize-cli db:migrate
-     
-5️⃣ Start the Server
-    npm start
-    The server will start on http://localhost:5000 by default.
+
+• Create an empty database in MSSQL first.
+• Run migrations to create tables: npx sequelize-cli db:migrate
+• Optional: Run seeders for default roles/admin: npx sequelize-cli db:seed:all
+
+5️⃣ Start Server
+
+npm start – Server runs at http://localhost:5000
 
 
 📡 API Endpoints
-All API requests should be sent in JSON format.
 
 1️⃣ User Registration
-    URL: POST /api/auth/register
-    Description: Creates a new user.
-    📝 Request Body:
-        {
-    "identifier": "test@email.com",  -> may be email or username
-    "password": "Password123."
-    ✅ Success Response: 201 Created
-        }
+
+• POST /api/auth/register
+• Description: Creates a new user.
+• Body:
+    • identifier: email or username
+    • password: Password123.
+• Success Response: 201 Created
 
 2️⃣ User Login
-    URL: POST /api/auth/login
-    Description: Authenticates a user and returns JWT tokens.
-    📝 Request Body:
-        {
-    "identifier": "test@email.com",
-    "password": "Password123."
-        }
-    ✅ Success Response: 200 OK
-    {
-    "token": "access_token_here",
-    "refreshToken": "refresh_token_here"
-    }
+
+• POST /api/auth/login
+• Description: Authenticates a user and returns JWT tokens.
+• Body: identifier & password
+• Success Response: 200 OK → Returns token + refreshToken
 
 3️⃣ Refresh Token
-    URL: POST /api/auth/refresh-token
-    Description: Generates a new access token using a valid refresh token.
-    📝 Request Body:
-        {
-    "refreshToken": "refresh_token_here"
-        }
-    ✅ Success Response: 200 OK
-        {
-    "token": "new_access_token_here"
-        }
+
+• POST /api/auth/refresh
+• Description: Generates a new access token using a valid refresh token.
+• Body: refreshToken
+• Success Response: 200 OK → Returns new access token
 
 4️⃣ Get Current User
-    URL: GET /api/user/me
-    Description: Retrieves the logged-in user's information. This endpoint is protected by a JWT access token.
-    🔑 Headers: Authorization: Bearer <access_token>
-    ✅ Success Response: 200 OK
-        {
-    "id": 1,
-    "username": "testuser",
-    "email": "test@email.com",
-    "role": "user"
-        }
+
+• GET /api/user/me
+• Description: Retrieves the logged-in user's information.
+• Header: Authorization: Bearer <access_token>
+• Success Response: 200 OK → Returns user info (id, username, email, role)
 
 5️⃣ Forgot Password
-    URL: POST /api/auth/forgot-password
-    Description: Sends a password reset token to the user.
-    📝 Request Body:
-        {
-    "email": "test@email.com"
-        }
-    ✅ Success Response: 200 OK
+
+• POST /api/auth/forgot-password
+• Description: Sends a password reset token to the user.
+• Body: email
+• Success Response: 200 OK
 
 6️⃣ Reset Password
-    URL: POST /api/auth/reset-password
-    Description: Resets the password using the reset token received via forgot-password token.
-    📝 Request Body:
-        {
-    "resetToken": "token_from_email",
-    "newPassword": "NewPassword123."
-        }
-    ✅ Success Response: 200 OK
+
+• POST /api/auth/reset-password
+• Description: Resets the password using the reset token from forgot-password request.
+• Body: resetToken + newPassword
+• Success Response: 200 OK
 
 
 ❗ Troubleshooting
 
-Connection refused: Check .env values & ensure MSSQL is running.
-Migrations not working: Ensure you created the empty database first before db:migrate.
-JWT errors: Confirm JWT_SECRET and JWT_REFRESH_SECRET are set correctly.
+• Connection refused: Check .env & ensure MSSQL is running
+• Migrations not working: Ensure empty database is created before db:migrate
+• JWT errors: Confirm JWT_SECRET & JWT_REFRESH_SECRET are set correctly
