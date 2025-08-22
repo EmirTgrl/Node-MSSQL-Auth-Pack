@@ -39,10 +39,10 @@ Create a .env file in the root directory:
 
 Database Settings
 
-• DB_HOST=localhost
-• DB_USER=sa
-• DB_PASSWORD=your_strong_password
-• DB_NAME=AuthPackDB
+• DB_HOST=localhost 
+• DB_USER=sa 
+• DB_PASSWORD=your_strong_password 
+• DB_NAME=AuthPackDB 
 
 JWT Settings
 
