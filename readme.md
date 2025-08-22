@@ -3,6 +3,7 @@
 A secure and ready-to-use authentication API built with Node.js, Express, and Sequelize (MSSQL).
 It provides JWT authentication, role-based authorization, and a robust backend that can be integrated with any frontend (React, Vue, Angular, mobile apps, etc.).
 
+-------------------------------------------------------------------------------------------------------------------------------------
 
 ✨ Key Features
 
@@ -24,6 +25,7 @@ It provides JWT authentication, role-based authorization, and a robust backend t
 
 • 🧪 Ready-to-use Postman collection for testing
 
+-------------------------------------------------------------------------------------------------------------------------------------
 
 📋 Requirements
 
@@ -31,6 +33,7 @@ It provides JWT authentication, role-based authorization, and a robust backend t
 
 • MSSQL database server
 
+-------------------------------------------------------------------------------------------------------------------------------------
 
 ⚡ Installation Guide
 
@@ -81,6 +84,7 @@ JWT Settings
 
 npm start – Server runs at http://localhost:5000
 
+-------------------------------------------------------------------------------------------------------------------------------------
 
 📡 API Endpoints
 
@@ -148,6 +152,7 @@ npm start – Server runs at http://localhost:5000
 
 • Success Response: 200 OK
 
+-------------------------------------------------------------------------------------------------------------------------------------
 
 ❗ Troubleshooting
 
